@@ -19,8 +19,6 @@ const EditDeal = ({ deal, setDealsChange }) => {
       });
 
       setDealsChange(true);
-
-      // window.location = "/";
     } catch (err) {
       console.error(err.message);
     }
@@ -31,16 +29,16 @@ const EditDeal = ({ deal, setDealsChange }) => {
     <Fragment>
       <button
         type="button"
-        className="btn btn-warning"
+        className="btn btn-outline-primary"
         data-toggle="modal"
         data-target={`#id${deal.id}`}
+        onClick={() => setDescription(deal.description)}
       >
         Modifier
       </button>
       <div
         className="modal"
         id={`id${deal.id}`}
-        onClick={() => setDescription(deal.description)}
       >
         <div className="modal-dialog">
           <div className="modal-content">
@@ -50,7 +48,6 @@ const EditDeal = ({ deal, setDealsChange }) => {
                 type="button"
                 className="close"
                 data-dismiss="modal"
-                onClick={() => setDescription(deal.description)}
               >
                 &times;
               </button>
@@ -68,7 +65,7 @@ const EditDeal = ({ deal, setDealsChange }) => {
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-warning"
+                className="btn btn-outline-primary"
                 data-dismiss="modal"
                 onClick={() => editText(deal.id)}
               >
@@ -78,7 +75,6 @@ const EditDeal = ({ deal, setDealsChange }) => {
                 type="button"
                 className="btn btn-danger"
                 data-dismiss="modal"
-                onClick={() => setDescription(deal.description)}
               >
                 Close
               </button>

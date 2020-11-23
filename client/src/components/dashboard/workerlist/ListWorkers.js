@@ -1,34 +1,33 @@
 import React, { Fragment, useState, useEffect } from "react";
-import EditDeal from "./EditDeal";
-import InputDeal from "./InputDeal";
+import InputWorker from './InputWorker';
 
-const ListDeals = ({ allDeals, setDealsChange }) => {
-  const [deals, setDeals] = useState([]); //empty array
+const ListWorkers = ({ allWorkers, setWorkersChange }) => {
+
+  const [workers, setWorkers] = useState([]); //empty array
   const [edit, setEdit] = useState(false);
+  //delete worker function
 
-  //delete deal function
-
-  async function deleteDeal(id) {
+  async function deleteWorker(id) {
     try {
-      await fetch(`http://localhost:5000/dashboard/deals/${id}`, {
+      await fetch(`http://localhost:5000/dashboard/workers/${id}`, {
         method: "DELETE",
         headers: { jwt_token: localStorage.token }
       });
 
-      setDeals(deals.filter(deal => deal.id !== id));
+      setWorkers(workers.filter(worker => worker.id !== id));
     } catch (err) {
       console.error(err.message);
     }
   }
 
   useEffect(() => {
-    setDeals(allDeals);
-  }, [allDeals]);
+    setWorkers(allWorkers);
+  }, [allWorkers]);
 
   return (
     <Fragment>
       <div className="d-flex justify-content-end mb-3">
-        <InputDeal setDealsChange={setDealsChange}/>
+        <InputWorker setWorkersChange={setWorkersChange}/>
         <button 
           className="btn btn-outline-primary ml-2" 
           onClick={()=>setEdit(!edit)}
@@ -40,25 +39,23 @@ const ListDeals = ({ allDeals, setDealsChange }) => {
         <thead>
           <tr>
             <th>Nº</th>
-            <th>Description</th>
-            {edit && <th>Modifier</th> }
+            <th>Prénom</th>
+            <th>Nom</th>
             {edit && <th>Supprimer</th>}
           </tr>
         </thead>
         <tbody>
-          {deals.length !== 0 &&
-            deals[0].id !== null &&
-            deals.map(deal => (
-              <tr key={deal.id}>
-                <td>{deal.id}</td>
-                <td>{deal.description}</td>
-                {edit && <td>
-                  <EditDeal deal={deal} setDealsChange={setDealsChange} />
-                </td>}
+          {workers.length !== 0 &&
+            workers[0].id !== null &&
+            workers.map(worker => (
+              <tr key={worker.id}>
+                <td>{worker.id}</td>
+                <td>{worker.name}</td>
+                <td>{worker.lastname}</td>
                 {edit && <td>
                   <button
                     className="btn btn-danger"
-                    onClick={() => deleteDeal(deal.id)}
+                    onClick={() => deleteWorker(worker.id)}
                   >
                     Supprimer
                   </button>
@@ -71,4 +68,4 @@ const ListDeals = ({ allDeals, setDealsChange }) => {
   );
 };
 
-export default ListDeals;
+export default ListWorkers;

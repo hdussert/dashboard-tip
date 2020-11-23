@@ -34,7 +34,7 @@ const Login = ({ setAuth }) => {
       if (parseRes.jwtToken) {
         localStorage.setItem("token", parseRes.jwtToken);
         setAuth(true);
-        toast.success("Logged in Successfully");
+        toast.success("Connexion réussie");
       } else {
         setAuth(false);
         toast.error(parseRes);
@@ -46,11 +46,12 @@ const Login = ({ setAuth }) => {
 
   return (
     <Fragment>
-      <h1 className="mt-5 text-center">Login</h1>
+      <h1 className="mt-5 text-center">Connexion</h1>
       <form onSubmit={onSubmitForm}>
         <input
           type="text"
           name="email"
+          placeholder="Email"
           value={email}
           onChange={e => onChange(e)}
           className="form-control my-3"
@@ -58,13 +59,14 @@ const Login = ({ setAuth }) => {
         <input
           type="password"
           name="password"
+          placeholder="Mot de passe"
           value={password}
           onChange={e => onChange(e)}
           className="form-control my-3"
         />
-        <button className="btn btn-success btn-block">Submit</button>
+        <button className="btn btn-success btn-block">Se connecter</button>
       </form>
-      <Link to="/register">register</Link>
+      <Link to="/register">Créer un compte</Link>
     </Fragment>
   );
 };

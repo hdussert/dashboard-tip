@@ -33,7 +33,7 @@ const Register = ({ setAuth }) => {
       if (parseRes.jwtToken) {
         localStorage.setItem("token", parseRes.jwtToken);
         setAuth(true);
-        toast.success("Register Successfully");
+        toast.success("Compte créé");
       } else {
         setAuth(false);
         toast.error(parseRes);
@@ -45,13 +45,13 @@ const Register = ({ setAuth }) => {
 
   return (
     <Fragment>
-      <h1 className="mt-5 text-center">Register</h1>
+      <h1 className="mt-5 text-center">Créer un compte</h1>
       <form onSubmit={onSubmitForm}>
         <input
           type="text"
           name="email"
           value={email}
-          placeholder="email"
+          placeholder="Email"
           onChange={e => onChange(e)}
           className="form-control my-3"
         />
@@ -59,7 +59,7 @@ const Register = ({ setAuth }) => {
           type="password"
           name="password"
           value={password}
-          placeholder="password"
+          placeholder="Mot de passe"
           onChange={e => onChange(e)}
           className="form-control my-3"
         />
@@ -67,13 +67,13 @@ const Register = ({ setAuth }) => {
           type="text"
           name="name"
           value={name}
-          placeholder="name"
+          placeholder="Pseudo"
           onChange={e => onChange(e)}
           className="form-control my-3"
         />
-        <button className="btn btn-success btn-block">Submit</button>
+        <button className="btn btn-success btn-block">Créer</button>
       </form>
-      <Link to="/login">login</Link>
+      <Link to="/login">Se connecter</Link>
     </Fragment>
   );
 };

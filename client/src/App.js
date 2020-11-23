@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
+import './App.css';
 
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -16,6 +17,9 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/dashboard/Dashboard";
 import Landing from "./components/Landing";
+
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment'; // hour picker
 
 toast.configure();
 
@@ -46,58 +50,60 @@ function App() {
   };
 
   return (
-    <Fragment>
-      <Router>
-        <div className="container">
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={props =>
-                !isAuthenticated ? (
-                  <Landing {...props} />
-                ) : (
-                  <Redirect to="/dashboard" />
-                )
-              }
-            />
-            <Route
-              exact
-              path="/login"
-              render={props =>
-                !isAuthenticated ? (
-                  <Login {...props} setAuth={setAuth} />
-                ) : (
-                  <Redirect to="/dashboard" />
-                )
-              }
-            />
-            <Route
-              exact
-              path="/register"
-              render={props =>
-                !isAuthenticated ? (
-                  <Register {...props} setAuth={setAuth} />
-                ) : (
-                  <Redirect to="/dashboard" />
-                )
-              }
-            />
-            <Route
-              exact
-              path="/dashboard"
-              render={props =>
-                isAuthenticated ? (
-                  <Dashboard {...props} setAuth={setAuth} />
-                ) : (
-                  <Redirect to="/login" />
-                )
-              }
-            />
-          </Switch>
-        </div>
-      </Router>
-    </Fragment>
+    <MuiPickersUtilsProvider utils={MomentUtils}>
+      <Fragment>
+        <Router>
+          <div className="container">
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={props =>
+                  !isAuthenticated ? (
+                    <Landing {...props} />
+                  ) : (
+                    <Redirect to="/dashboard" />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/login"
+                render={props =>
+                  !isAuthenticated ? (
+                    <Login {...props} setAuth={setAuth} />
+                  ) : (
+                    <Redirect to="/dashboard" />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/register"
+                render={props =>
+                  !isAuthenticated ? (
+                    <Register {...props} setAuth={setAuth} />
+                  ) : (
+                    <Redirect to="/dashboard" />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/dashboard"
+                render={props =>
+                  isAuthenticated ? (
+                    <Dashboard {...props} setAuth={setAuth} />
+                  ) : (
+                    <Redirect to="/login" />
+                  )
+                }
+              />
+            </Switch>
+          </div>
+        </Router>
+      </Fragment>
+    </MuiPickersUtilsProvider>
   );
 }
 

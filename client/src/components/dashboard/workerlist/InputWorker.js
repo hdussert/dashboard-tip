@@ -1,7 +1,8 @@
 import React, { Fragment, useState } from "react";
 
-const InputDeal = ({ setDealsChange }) => {
-  const [description, setDescription] = useState("");
+const InputWorker = ({ setWorkersChange }) => {
+  const [name, setName] = useState("");
+  const [lastname, setLastname] = useState("");
 
   const onSubmitForm = async e => {
     e.preventDefault();
@@ -11,37 +12,47 @@ const InputDeal = ({ setDealsChange }) => {
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("jwt_token", localStorage.token);
 
-      const body = { description };
-      const response = await fetch("http://localhost:5000/dashboard/deals", {
+      const body = { name, lastname };
+      const response = await fetch("http://localhost:5000/dashboard/workers", {
         method: "POST",
         headers: myHeaders,
         body: JSON.stringify(body)
       });
-      setDealsChange(true);
-      setDescription("");
+
+      const parseResponse = await response.json();
+
+      setWorkersChange(true);
+      setName("");
+      setLastname("");
     } catch (err) {
       console.error(err.message);
     } 
   };
+
+  const resetNames = () => {
+    setName("");
+    setLastname("");
+  }
+
   return (
     <Fragment>
       <button
         type="button"
         className="btn btn-primary"
         data-toggle="modal"
-        data-target={`#modal-target-inputdeal`}
-        onClick={()=>setDescription("")}
+        data-target={`#modal-target-inputworker`}
+        onClick={resetNames}
       >
         Ajouter
       </button>
       <div
         className="modal"
-        id={`modal-target-inputdeal`}
+        id={`modal-target-inputworker`}
       >
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h4 className="modal-title">Ajouter une affaire</h4>
+              <h4 className="modal-title">Ajouter un employé</h4>
               <button
                 type="button"
                 className="close"
@@ -52,13 +63,20 @@ const InputDeal = ({ setDealsChange }) => {
             </div>
 
             <div className="modal-body">
-              <input
-                type="text"
-                placeholder="Nom de l'affaire"
-                className="form-control"
-                value={description}
-                onChange={e => setDescription(e.target.value)}
-              />
+                <input
+                  type="text"
+                  placeholder="Nom"
+                  className="form-control mb-1"
+                  value={lastname}
+                  onChange={e => setLastname(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Prénom"
+                  className="form-control"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                />
             </div>
 
             <div className="modal-footer">
@@ -85,4 +103,4 @@ const InputDeal = ({ setDealsChange }) => {
   );
 };
 
-export default InputDeal;
+export default InputWorker;
